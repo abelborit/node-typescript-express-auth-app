@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     require: [true, "Email is required"],
     unique: true, // el email tiene que ser un valor único entonces en la base de datos NO tiene que existir un email duplicado
   },
+  emailValidated: {
+    type: Boolean,
+    default: false,
+  },
   password: {
     type: String,
     require: [true, "Password is required"],
