@@ -26,7 +26,8 @@ Ya para la siguiente sección, una vez teniendo el usuario ingresado y su contra
 
 ### \* RECURSOS A USAR:
 
-- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `bcryptjs` usando `npm i bcryptjs` desde `https://www.npmjs.com/package/bcryptjs`
+  - Para los tipos `npm i --save-dev @types/bcryptjs`
 - Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
 - Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
 
