@@ -1,7 +1,7 @@
 /* este AuthService será quien se encargue de ejecutar toda la parte pesada, es decir, todos los procesos o tareas de creación, validación, etc */
 
 import { AuthModel } from "../../data/mongo";
-import { RegisterUserDTO } from "../../domain/DTOs/auth";
+import { LoginUserDTO, RegisterUserDTO } from "../../domain/DTOs/auth";
 import { CustomError } from "../../domain/errors/custom.error";
 import { UserEntity } from "../../domain/entities/user.entity";
 import { bcryptAdapter } from "../../config";
@@ -51,5 +51,30 @@ export class AuthService {
     } catch (error) {
       throw CustomError.internalServer_500(`Internal Server Error - ${error}`);
     }
+  }
+
+  public async loginUser(loginUserDTO: LoginUserDTO) {
+    const isUserExist = await AuthModel.findOne({
+      email: loginUserDTO.email,
+    });
+
+    if (!isUserExist) throw CustomError.badRequest_400("Email does not exist");
+
+    /* comparar la contraseña recibida y la hasheada */
+    const isMatchPassword = bcryptAdapter.compare(
+      loginUserDTO.password,
+      isUserExist.password! // se coloca el ! porque ya sabemos que el isUserExist sí existe porque si no existiera entonces ya se está validando arriba
+    );
+
+    if (!isMatchPassword)
+      throw CustomError.badRequest_400("Password is not valid");
+
+    const { password, ...restPropsNewUserEntity } =
+      UserEntity.fromObject(isUserExist);
+
+    return {
+      user: restPropsNewUserEntity,
+      token: "ABC",
+    }; // se puede usar restPropsNewUserEntity dado por nuestra entidad UserEntity sin utilizar el password. Se puede colocar como mejor veamos por conveniente, en este caso se dividirán las propiedades, es decir, se enviará las propiedades del usuario y también el token pero por separado
   }
 }

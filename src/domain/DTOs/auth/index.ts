@@ -1,4 +1,5 @@
 export * from "./register-user.dto";
+export * from "./login-user.dto";
 
 /* ---- INFORMACIÓN ADICIONAL PARA ENTENDER UN DTO vs ENTITY ---- */
 /* Un objeto de transferencia de datos (DTO) es un objeto que transporta datos entre procesos. Puede utilizar esta técnica para facilitar la comunicación entre dos sistemas (como una API y su servidor) sin exponer potencialmente información confidencial */

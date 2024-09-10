@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterUserDTO } from "../../domain/DTOs/auth";
+import { LoginUserDTO, RegisterUserDTO } from "../../domain/DTOs/auth";
 import { AuthService } from "../services/auth.service";
 import { CustomError } from "../../domain/errors/custom.error";
 
@@ -23,7 +23,18 @@ export class AuthController {
   };
 
   public loginUser = (request: Request, response: Response) => {
-    return response.json("loginUser method");
+    // console.log(request.body);
+
+    const [error, loginUserDTO] = LoginUserDTO.execute(request.body);
+
+    if (error) return response.status(400).json({ error });
+
+    /* aquí se coloca el ! porque ya se sabe que si todo está correcto entonces el loginUserDTO tiene el valor porque si hubiera algún error entonces iría al condicional del error */
+    /* tener en cuenta que se está usando promesas (.then().catch()) y no async/await aunque ambos son totalmente válidos, pero Fernando Herrera recomienda usar promesas porque es una buena práctica cuando trabajamos en controladores, pero se puede usar async/await si nos resulta más cómodo ya que no debería haber problemas con usar uno o el otro */
+    this.authService
+      .loginUser(loginUserDTO!)
+      .then((user) => response.json(user))
+      .catch((error) => this.handleErrorResponse(response, error));
   };
 
   public registerUser = (request: Request, response: Response) => {
