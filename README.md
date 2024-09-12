@@ -34,7 +34,8 @@ Ya para la siguiente sección, una vez teniendo el usuario ingresado y su contra
 
 ### \* NOTAS:
 
-- ejemplo
+- Podemos usar https://jwt.io/ para validar el token que estamos generando y ver si la información que estamos enviando nos genera correctamente.
+  - Aquí también hay un ejemplo de usar el JWT para el lado cliente https://dev.to/sanjayttg/jwt-authentication-in-react-with-react-router-1d03
 - ejemplo
 - ejemplo
 

@@ -4,7 +4,7 @@ import { AuthModel } from "../../data/mongo";
 import { LoginUserDTO, RegisterUserDTO } from "../../domain/DTOs/auth";
 import { CustomError } from "../../domain/errors/custom.error";
 import { UserEntity } from "../../domain/entities/user.entity";
-import { bcryptAdapter } from "../../config";
+import { bcryptAdapter, JwtAdapter } from "../../config";
 
 /* para tener en cuenta que si queremos usar la arquitectura limpia en su totalidad, entonces estos métodos del AuthService serían los casos de uso */
 /* Considerar que trabajar con servicios y trabajar con el patrón basado en repositorios junto con los casos de uso son dos formas diferentes de trabajar:
@@ -72,9 +72,19 @@ export class AuthService {
     const { password, ...restPropsNewUserEntity } =
       UserEntity.fromObject(isUserExist);
 
+    /* aquí en el login veríamos qué guardar en el payload del token que en este caso solo guardaremos el id y el email del usuario. Puede ser que falle la creación o generación del token, pero eso no debería de ser un error como bad request, como lo venimos trabajando, sino, debería de ser un internal server error porque significa que algo sucedió y por ende dió error y que no estábamos esperando que sucediera ese error */
+    const token = await JwtAdapter.generateToken({
+      id: isUserExist.id,
+      email: isUserExist.email,
+    });
+    /* siempre nuestro JwtAdapter.generateToken(......) está regresando de manera exitosa todo mediante el resolve(.....), así falle o no la generación, pero aquí ya realizamos la validación correspondiente */
+    if (!token)
+      throw CustomError.internalServer_500("Error while creating JWT");
+
+    /* Podemos usar https://jwt.io/ para validar el token que estamos generando y ver si la información que estamos enviando nos genera correctamente. */
     return {
       user: restPropsNewUserEntity,
-      token: "ABC",
+      token: token,
     }; // se puede usar restPropsNewUserEntity dado por nuestra entidad UserEntity sin utilizar el password. Se puede colocar como mejor veamos por conveniente, en este caso se dividirán las propiedades, es decir, se enviará las propiedades del usuario y también el token pero por separado
   }
 }
