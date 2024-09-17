@@ -2,6 +2,8 @@
 
 ---
 
+## Parte I:
+
 # Temas puntuales de la sección
 
 ### ¿Qué veremos en esta sección?
@@ -36,6 +38,54 @@ Ya para la siguiente sección, una vez teniendo el usuario ingresado y su contra
 
 - Podemos usar https://jwt.io/ para validar el token que estamos generando y ver si la información que estamos enviando nos genera correctamente.
   - Aquí también hay un ejemplo de usar el JWT para el lado cliente https://dev.to/sanjayttg/jwt-authentication-in-react-with-react-router-1d03
+- ejemplo
+- ejemplo
+
+---
+
+## Parte II:
+
+# Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+En esta sección realizaremos una verificación de correo electrónico y crearemos un túnel para poder conectarnos desde internet a nuestro localhost.
+
+- Puntualmente veremos:
+
+  - Envío de correo
+  - Creación de links de retorno
+  - ngrok para tunneling
+  - Variables de entorno para facilitar sus cambios
+  - Pruebas de conexión y validación desde el celular
+  - Pruebas hacia el localhost desde internet
+
+- El objetivo será el siguiente:
+
+  1. Registrar un usuario nuevo
+  2. Se enviará al usuario nuevo un correo con un link
+  3. Hacer click en el enlace que recibe el usuario nuevo
+  4. Al hacer click al enlace se reenviará automáticamente a nuestro servidor para poder realizar las validaciones del correo electrónico
+     1. El correo enviado irá con un token que tendrá la fecha de expiración (podrían ser unos 15 minutos o más dependiendo del proyecto)
+     2. El token caerá en nuestro endpoint y el endpoint lo leerá y verificará que el token no haya sido manipulado por algo externo y hará el proceso respectivo para validar el correo electrónico
+     3. **NOTA:** el procedimiento funcionará correctamente desde nuetro local, es decir, desde nuestra laptop pero si queremos hacer lo mismo desde el celular, no funcionará porque el procedimiento está apuntando al localhost. Pero si se coloca la dirección ip de la computadora y el celular está en la misma red de la computadora, entonces puede ser que pueda funcionar pero no es muy práctico realizar eso porque es tedioso y puede ser que algo no funcione correctamente, entonces para eso sería conveniente desplegarlo para ver su funcionalidad, pero, cabe recordar que estamos aún en ambiente de desarrollo y pueden haber cosas que aún queremos probar y cambiar, entonces para eso usaremos _ngrok_ lo cual es un servicio que nos ayuda a poder hacer un tunel entre nuestro localhost (literalmente vamos a exponer nuestro puerto 3000 de la computadora o donde estemos corriendo nuestro servidor) y también está conectado a nuestra base de datos posgress o mongo localmente, y con eso vamos a tener una url expuesta en internet la cual usaremos para el enlace y para poder realizar las pruebas en la computadora, en el celular, tablet, etc.
+     4. **NOTA:** ahora en vez de usar _ngrok_, Visual Studio Code trae una funcionalidad para poder exponer un puerto de manera propia y aquí podemos ver las diferencias https://www.youtube.com/watch?v=wkAPJzKAot4
+
+### \* PASOS A REALIZAR:
+
+1. ejemplo
+2. ejemplo
+3. ejemplo
+
+### \* RECURSOS A USAR:
+
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+
+### \* NOTAS:
+
+- ejemplo
 - ejemplo
 - ejemplo
 
