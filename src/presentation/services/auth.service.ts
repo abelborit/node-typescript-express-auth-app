@@ -42,11 +42,21 @@ export class AuthService {
       const { password, ...restPropsNewUserEntity } =
         UserEntity.fromObject(newUser);
 
+      /* aquí en el register veríamos qué guardar en el payload del token que en este caso solo guardaremos el id y el email del usuario. Puede ser que falle la creación o generación del token, pero eso no debería de ser un error como bad request, como lo venimos trabajando, sino, debería de ser un internal server error porque significa que algo sucedió y por ende dió error y que no estábamos esperando que sucediera ese error */
+      const token = await JwtAdapter.generateToken({
+        id: newUser.id,
+        email: newUser.email,
+      });
+      /* siempre nuestro JwtAdapter.generateToken(......) está regresando de manera exitosa todo mediante el resolve(.....), así falle o no la generación, pero aquí ya realizamos la validación correspondiente */
+      if (!token)
+        throw CustomError.internalServer_500("Error while creating JWT");
+
       // return newUser; // se puede usar el newUser dado por la base de datos
       // return newUserEntity; // se puede usar newUserEntity dado por nuestra entidad UserEntity
+      /* Podemos usar https://jwt.io/ para validar el token que estamos generando y ver si la información que estamos enviando nos genera correctamente. */
       return {
         user: restPropsNewUserEntity,
-        token: "ABC",
+        token: token,
       }; // se puede usar restPropsNewUserEntity dado por nuestra entidad UserEntity sin utilizar el password. Se puede colocar como mejor veamos por conveniente, en este caso se dividirán las propiedades, es decir, se enviará las propiedades del usuario y también el token pero por separado
     } catch (error) {
       throw CustomError.internalServer_500(`Internal Server Error - ${error}`);
