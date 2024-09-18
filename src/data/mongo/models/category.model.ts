@@ -23,5 +23,5 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
-/* modelo para poder interactuar con mongo. El nombre que aparecerá será "Categorys" porque mongoose por defecto toma el nombre del modelo y le aumenta una "s" pero eso igual se puede colocar según el nombre que nosotros queramos */
+/* modelo para poder interactuar con mongo. El nombre que aparecerá será "Categories" porque mongoose por defecto toma el nombre del modelo y le aumenta una "s" o "ies" pero eso igual se puede colocar según el nombre que nosotros queramos */
 export const CategoryModel = mongoose.model("Category", categorySchema);
