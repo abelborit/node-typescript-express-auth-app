@@ -1,13 +1,20 @@
 import { Router } from "express";
 import { AuthController } from "./controller";
 import { AuthService } from "../services/auth.service";
+import { EmailService } from "../services/email.service";
+import { envs } from "../../config";
 
 export class AuthRoutes {
   /* aquí se utiliza static functions porque como no se hará inyección de dependencias entonces no sería necesario instsanciar la clase AppRoutes y solo se coloca directo. También se están usando el get function para tener otra forma de realizar esta función, se podría realizar sin ese get (son solo diferentes formas de hacerlo) */
   static get routes(): Router {
     const router = Router();
 
-    const authService = new AuthService();
+    const emailService = new EmailService(
+      envs.MAILER_SERVICE,
+      envs.MAILER_EMAIL,
+      envs.MAILER_SECRET_KEY
+    );
+    const authService = new AuthService(emailService);
     const authController = new AuthController(authService);
 
     /* Routes de las API del auth */

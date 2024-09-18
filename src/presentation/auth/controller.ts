@@ -53,6 +53,10 @@ export class AuthController {
   };
 
   public validateEmailUser = (request: Request, response: Response) => {
-    return response.json("validateEmailUser method");
+    /* obtener el token que viene desde el enlace de validación del correo del usuario, es decir, tomar el parámetro que viene mediante la url de la api, que en este caso sería el parámetro del token */
+    const { token } = request.params;
+
+    /* probar que todo funciona correctamente regresando el token. Aquí aún no se está haciendo la validación */
+    response.json(token);
   };
 }

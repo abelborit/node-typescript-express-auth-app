@@ -18,4 +18,7 @@ export const envs = {
   MAILER_SERVICE: get("MAILER_SERVICE").required().asString(),
   MAILER_EMAIL: get("MAILER_EMAIL").required().asEmailString(),
   MAILER_SECRET_KEY: get("MAILER_SECRET_KEY").required().asString(),
+
+  /* GENERAR LINK DE RETORNO AL CORREO DEL USUARIO Y PODER REALIZAR LA VALIDACIÓN */
+  WEB_SERVICE_URL: get("WEB_SERVICE_URL").required().asString(),
 };
