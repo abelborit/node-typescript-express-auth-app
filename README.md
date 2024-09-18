@@ -79,14 +79,41 @@ En esta sección realizaremos una verificación de correo electrónico y crearem
 
 ### \* RECURSOS A USAR:
 
+- Paquete `nodemailer` usando `npm i nodemailer` desde `https://www.npmjs.com/package/nodemailer` y su página oficial `https://nodemailer.com/about/` para mandar un correo autenticado desde nuestra cuenta de gmail
+
+  - Para el archivo de definición de TypeScript `npm i --save-dev @types/nodemailer`
+
+    - Por si hay algún error referente al enviar mail por falta de host, entonces se puede agregar:
+
+      ```javascript
+        private transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          service: envs.MAILER_SERVICE,
+          auth: {
+            user: envs.MAILER_EMAIL,
+            pass: envs.MAILER_SECRET_KEY,
+          },
+        });
+      ```
+
+    - Para enviar archivos adjuntos o attachments `https://nodemailer.com/message/attachments/`
+
+    - Ejemplo de envío de emails en Node JS usando Nodemailer y Outlook: `https://www.youtube.com/watch?v=OuYHrVMcuCU`
+
 - Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
-- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+
 - Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
 
 ### \* NOTAS:
 
+- Para este ejercicio se podría usar nuestra cuenta de gmail y evitar hacer algún pago y aquí nosotros queremos mandar un correo autenticado desde nuestra cuenta de gmail pero desde esta aplicación de node y así podemos crear un nuevo correo de gmail y usarlo para el envío de estos correos electrónicos automatizados. Para hacer eso hay que hacer unas configuraciones que es para las contraseñas y unas políticas de seguridad de nuestra cuenta de gmail, no es complicado pero hay que hacerlas en orden para poder usar `nodemailer` y también estamos usando las variables de entorno para poder hacer un poco más segura nuestra aplicación y datos sensibles.
+
+  - Para la verificación en dos pasos: https://myaccount.google.com/security
+
+  - Para establecer un nivel de acceso a nuestra aplicación: https://myaccount.google.com/u/0/apppasswords la cual se colocará en las variables de entorno en _MAILER_SECRET_KEY_
+
 - ejemplo
-- ejemplo
+
 - ejemplo
 
 ---

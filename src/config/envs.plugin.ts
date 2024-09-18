@@ -13,4 +13,9 @@ export const envs = {
 
   /* JWT */
   JWT_SEED: get("JWT_SEED").required().asString(),
+
+  /* ENVIO DE CORREO */
+  MAILER_SERVICE: get("MAILER_SERVICE").required().asString(),
+  MAILER_EMAIL: get("MAILER_EMAIL").required().asEmailString(),
+  MAILER_SECRET_KEY: get("MAILER_SECRET_KEY").required().asString(),
 };
