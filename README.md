@@ -117,3 +117,43 @@ En esta sección realizaremos una verificación de correo electrónico y crearem
 - ejemplo
 
 ---
+
+## Parte III:
+
+# Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+En esta sección veremos temas middlewares para protección de rutas (rutas enteras, segmentos de rutas o rutas en particular) basado en un token (ya que en la sección anterior solo estamos usando el token para validar nuestro email), dtos para crear los query parameters, usar los query parameters para aplicar una paginación, relaciones en nuestros modelos (por ejemplo los usuarios empiezan a crear blogs, productos, categorías, etc, entonces debemos de tener bien idenfiticado que, por ejemplo, el usuario A creó el registro Registro_A y veremos cómo hacer esa relación de modelos)
+
+- Puntualmente veremos:
+
+  - Middlewares
+  - Rutas
+  - Modelos
+  - Validación de token
+  - Query parameters (argumentos opcionales que vienen en la ruta)
+    - Los query parameters son opcionales porque si fueran obligatorios entonces serían segmentos de ruta
+  - Estrategias de paginación
+  - Manejo de errores
+  - Consideración sobre uso de servicios y inyección de dependencias.
+
+### \* PASOS A REALIZAR:
+
+1. ejemplo
+2. ejemplo
+3. ejemplo
+
+### \* RECURSOS A USAR:
+
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+
+### \* NOTAS:
+
+- ejemplo
+- ejemplo
+- ejemplo
+
+---
