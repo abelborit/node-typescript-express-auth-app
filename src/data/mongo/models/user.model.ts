@@ -8,12 +8,12 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    // require: true, // si se quiere guardar el name en nuestro userSchema entonces el name tiene que venir sí o sí porque si no dará un error
-    require: [true, "Name is required"], // si se quiere guardar el name en nuestro userSchema entonces el name tiene que venir sí o sí porque si no dará un error el cual se lo podemos mandar de esa forma en un arreglo
+    // required: true, // si se quiere guardar el name en nuestro userSchema entonces el name tiene que venir sí o sí porque si no dará un error
+    required: [true, "Name is required"], // si se quiere guardar el name en nuestro userSchema entonces el name tiene que venir sí o sí porque si no dará un error el cual se lo podemos mandar de esa forma en un arreglo
   },
   email: {
     type: String,
-    require: [true, "Email is required"],
+    required: [true, "Email is required"],
     unique: true, // el email tiene que ser un valor único entonces en la base de datos NO tiene que existir un email duplicado
   },
   emailValidated: {
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    require: [true, "Password is required"],
+    required: [true, "Password is required"],
   },
   imageUser: {
     type: String,
