@@ -22,7 +22,16 @@ export class JwtAdapter {
   }
 
   static validateToken(token: string) {
-    throw new Error("Not implemented");
+    return new Promise((resolve) => {
+      /* el decoded vendría a ser lo que sea que nosotros hayamos firmado en el token en su payload */
+      jwt.verify(token, JWT_SEED, (error, decoded) => {
+        /* aquí se podría mandar el reject de la promesa, pero retornaremos un resolve(null). Es decir, la promesa siempre se va a resolver de manera exitosa pero con un null si hay un error */
+        if (error) return resolve(null);
+
+        /* aquí se retorna el resolve con el decoded. Se puede colocar el return o no, porque como es la última línea de código, entonces no habría problema, pero igual se está colocando */
+        return resolve(decoded);
+      });
+    });
   }
 }
 

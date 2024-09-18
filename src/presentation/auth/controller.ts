@@ -57,6 +57,12 @@ export class AuthController {
     const { token } = request.params;
 
     /* probar que todo funciona correctamente regresando el token. Aquí aún no se está haciendo la validación */
-    response.json(token);
+    // response.json(token);
+
+    /* siempre debería de existir el token porque si no entonces no tendríamos esta url, pero igual se hará su validación en un método en el authService y si todo es válido entonces se podrá cambiar en la base de datos el emailValidated de false a true */
+    this.authService
+      .validateEmail(token)
+      .then(() => response.json("Email validated successfully"))
+      .catch((error) => this.handleErrorResponse(response, error));
   };
 }

@@ -147,4 +147,31 @@ export class AuthService {
 
     return true;
   };
+
+  public validateEmail = async (token: string) => {
+    const payloadToken = await JwtAdapter.validateToken(token);
+
+    /* aquí también se puede colocar como un bad request, pero estaría mejor como unauthorized (no autorizado) porque el token no es válido */
+    if (!payloadToken) throw CustomError.unauthorized_401("Invalid Token");
+
+    /* se coloca el -- as { email: string }  -- porque colocamos que el payloadToken o el payload que viene del token sea de tipo any, entonces se le está colocando de forma explícita que se comporte como un objeto que tiene un email de tipo string */
+    const { email } = payloadToken as { email: string };
+
+    /* porque puede ser que haya un problema con el email que se mandó en el payload, o no se mandó por el lado del backend o sucedió algo inesperado */
+    if (!email) throw CustomError.internalServer_500("Email not in token");
+
+    /* tomar el usuario de la base de datos */
+    const user = await AuthModel.findOne({ email });
+
+    /* el usuario debería de existir pero por A o B motivo si el usuario no existe o alguien lo borró o sucedió algo inesperado y se coloca un internalServer_500 porque es un error de nuestro lado, es decir, no podría ser un badRequest_400 porque no tiene nada que ver con que el usuario haya enviado mal alguna data */
+    if (!user) throw CustomError.internalServer_500("Email not exists");
+
+    user.emailValidated = true;
+
+    /* enviarlo a la base de datos nuevamente */
+    await user.save();
+
+    /* regresar un true, aunque no sería necesario porque como se está usando async y el proceso o la lógica se use correctamente sin excepciones, entonces todo bien, pero igual regresaremos un true solo para retornar algo */
+    return true;
+  };
 }
