@@ -152,8 +152,16 @@ En esta sección veremos temas middlewares para protección de rutas (rutas ente
 
 ### \* NOTAS:
 
+- ¿Por qué category y product no usan entities?
+
+  - La creación de entidades en una aplicación depende de la complejidad del modelo de datos. En este caso, la clase UserEntity se crea como una entidad porque representa la estructura de un usuario con propiedades específicas donde la función fromObject realiza la conversión de un objeto MongoDB a una instancia de la entidad UserEntity para usar en nuestro código.
+
+  - La decisión de crear entidades puede basarse en factores como la complejidad del modelo, en escenarios más complejos, donde se realizan operaciones complejas con ciertos datos, la creación de entidades puede ser beneficiosa, pero en casos más simples, como los productos y categorías, puede no ser necesario.
+
+  - Por ejemplo, un proyecto con usuarios y responsabilidades/tareas, si las responsabilidades tienen una estructura específica y se realizan operaciones con ellos, crear una entidad para representar esa estructura y manejar las operaciones puede ser beneficioso, todo depende del contexto y la complejidad de los datos con los que se van a manejar.
+
 - ejemplo
-- ejemplo
+
 - ejemplo
 
 ---
