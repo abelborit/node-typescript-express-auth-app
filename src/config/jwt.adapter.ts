@@ -21,7 +21,8 @@ export class JwtAdapter {
     });
   }
 
-  static validateToken(token: string) {
+  /* se colocará como un genérico para que regrese el tipo según lo que se le está enviando, porque si no entonces regresaría -- Promise<unknown> -- lo que no estaría mal pero sería mejor tenerlo tipado y lo haremos como un genérico. Otra forma también puede ser como lo colocamos en -- const { email } = payloadToken as { email: string };  -- */
+  static validateToken<T>(token: string): Promise<T | null> {
     return new Promise((resolve) => {
       /* el decoded vendría a ser lo que sea que nosotros hayamos firmado en el token en su payload */
       jwt.verify(token, JWT_SEED, (error, decoded) => {
@@ -29,7 +30,7 @@ export class JwtAdapter {
         if (error) return resolve(null);
 
         /* aquí se retorna el resolve con el decoded. Se puede colocar el return o no, porque como es la última línea de código, entonces no habría problema, pero igual se está colocando */
-        return resolve(decoded);
+        return resolve(decoded as T); // colocaremos as T para que trate el valor de decoded como el mismo tipo de dato que se le está enviando, porque sino nos dará un warning
       });
     });
   }

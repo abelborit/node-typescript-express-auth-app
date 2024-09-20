@@ -26,10 +26,13 @@ export class CategoryController {
   };
 
   public createCategory = async (request: Request, response: Response) => {
-    const [error, createCategoryDTO] = CreateCategoryDTO.execute(request.body);
+    /* como en el AuthMiddleware estamos colocando que el body de la request se le coloque también el usuario entonces con este -- response.json(request.body) -- veremos que tiene la categoría creada y toda la información del usuario, password, id, role, token, etc */
+    response.json(request.body);
 
-    if (error) return response.status(400).json({ error });
+    // const [error, createCategoryDTO] = CreateCategoryDTO.execute(request.body);
 
-    response.status(200).json(createCategoryDTO);
+    // if (error) return response.status(400).json({ error });
+
+    // response.status(200).json(createCategoryDTO);
   };
 }

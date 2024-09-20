@@ -160,7 +160,28 @@ En esta sección veremos temas middlewares para protección de rutas (rutas ente
 
   - Por ejemplo, un proyecto con usuarios y responsabilidades/tareas, si las responsabilidades tienen una estructura específica y se realizan operaciones con ellos, crear una entidad para representar esa estructura y manejar las operaciones puede ser beneficioso, todo depende del contexto y la complejidad de los datos con los que se van a manejar.
 
-- ejemplo
+- En el proyecto le estamos proporcionando el token directamente a postman para hacer uso de ello, pero en una aplicacion con frontend y backend, ¿Dónde proporcionamos el token a nuestros headers?
+
+  - Cuando se hace una petición desde el frontend utilizando el Fetch API o Axios, se tienen algunas opciones y entre ellas se encuentran los headers. Primero nos debe asegurar de obtener el token y luego se puede incluir en las siguientes peticiones:
+
+  ```js
+  fetch("https://api.tuapp.com/algun-recurso", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  ```
+
+  ```js
+  axios.get("https://api.tuapp.com/algun-recurso", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  ```
 
 - ejemplo
 

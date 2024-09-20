@@ -155,6 +155,7 @@ export class AuthService {
     if (!payloadToken) throw CustomError.unauthorized_401("Invalid Token");
 
     /* se coloca el -- as { email: string }  -- porque colocamos que el payloadToken o el payload que viene del token sea de tipo any, entonces se le está colocando de forma explícita que se comporte como un objeto que tiene un email de tipo string */
+    /* aquí solo se coloca con el email porque en el método sendEmailValidationLink estamos generando un token pero solo con el email del usuario */
     const { email } = payloadToken as { email: string };
 
     /* porque puede ser que haya un problema con el email que se mandó en el payload, o no se mandó por el lado del backend o sucedió algo inesperado */
