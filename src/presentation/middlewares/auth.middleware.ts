@@ -3,7 +3,7 @@
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { JwtAdapter } from "../../config";
-import { AuthModel } from "../../data/mongo";
+import { UserModel } from "../../data/mongo";
 import { UserEntity } from "../../domain/entities/user.entity";
 
 export class AuthMiddleware {
@@ -48,7 +48,7 @@ export class AuthMiddleware {
         throw CustomError.internalServer_500("Id not in token");
 
       /* tomar el usuario de la base de datos según el id que viene en el token */
-      const user = await AuthModel.findById(payloadToken.id);
+      const user = await UserModel.findById(payloadToken.id);
 
       /* el usuario debería de existir pero por A o B motivo si el usuario no existe o alguien lo borró o sucedió algo inesperado y se coloca un internalServer_500 porque es un error de nuestro lado, es decir, no podría ser un badRequest_400 porque no tiene nada que ver con que el usuario haya enviado mal alguna data. También podría ser un 401 para indicar que el usuario no está autorizado para realizar alguna acción */
       // if (!user) throw CustomError.internalServer_500("Invalid token - user not exists");

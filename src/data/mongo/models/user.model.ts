@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 });
 
 /* modelo para poder interactuar con mongo. El nombre que aparecerá será "Users" porque mongoose por defecto toma el nombre del modelo y le aumenta una "s" pero eso igual se puede colocar según el nombre que nosotros queramos */
-export const AuthModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model("User", userSchema);
 
 /* ---- NOTAS DE OTRO EJERCICIO ---- */
 /* NOTA 1 */

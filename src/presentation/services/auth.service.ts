@@ -9,7 +9,7 @@
   - Token de sendEmailValidationLink: Este token se genera cuando el usuario solicita un enlace de validación de correo electrónico. Su único propósito es validar la dirección de correo electrónico del usuario.
 */
 
-import { AuthModel } from "../../data/mongo";
+import { UserModel } from "../../data/mongo";
 import { LoginUserDTO, RegisterUserDTO } from "../../domain/DTOs/auth";
 import { CustomError } from "../../domain/errors/custom.error";
 import { UserEntity } from "../../domain/entities/user.entity";
@@ -30,8 +30,8 @@ export class AuthService {
   /* tener en consideración que aquí como en otros archivos se está colocando como un function method normal (como una función con el nivel de public, private, etc) y no como función flecha como en el caso de los controladores por ejemplo el controller.ts porque, por ejemplo, en controller.ts si se ejecuta como un function method como en este archivo, entonces el puntero del "this" no funciona algunas veces y nos puede dar errores como que el objeto no está o no se definió, entonces al usar las funciones flecha solo hace caso al scope de su función como tal y solo en el controller.ts estamos usando las funciones flecha, aunque en realidad en todos los archivos se puede usar esa forma, de función flecha, porque al final de cuentas y a la larga, todo eso termina siendo lo mismo */
   public async registerUser(registerUserDTO: RegisterUserDTO) {
     /* en este método del servicio de AuthService es donde haremos realmente la lógica pesada de creación, validación, etc, para registrar a un usuario y aquí usaremos el modelo creado anteriormente porque es una referencia al modelo de la tabla que tenemos en Mongoose, es decir, es como una representación de la tabla de usuarios en nuestra base de datos, con este modelo podemos hacer consultas a la base de datos, como buscar un usuario, crear un nuevo usuario, actualizar un usuario, etc., todo esto ya está proporcionado por Mongoose, en este caso se usa el modelo para buscar un usuario por correo electrónico */
-    /* tener en cuenta que aquí se está colocando directo el AuthModel y no mediante una inyección de dependencias, lo cual, en un futuro, si se desea cambiar la base de datos la única parte donde tendrían que haber los cambios pesados sería aquí en el AuthService y pueden haber otros cambios en otros archivos pero ya no tan difíciles, se podría inyectar el repositorio para que sea el repositorio quien cambie la base de datos (usando el patrón repository) */
-    const isUserExist = await AuthModel.findOne({
+    /* tener en cuenta que aquí se está colocando directo el UserModel y no mediante una inyección de dependencias, lo cual, en un futuro, si se desea cambiar la base de datos la única parte donde tendrían que haber los cambios pesados sería aquí en el AuthService y pueden haber otros cambios en otros archivos pero ya no tan difíciles, se podría inyectar el repositorio para que sea el repositorio quien cambie la base de datos (usando el patrón repository) */
+    const isUserExist = await UserModel.findOne({
       email: registerUserDTO.email,
     });
 
@@ -39,7 +39,7 @@ export class AuthService {
 
     /* cuando se quiere grabar en base de datos, es mejor hacerlo dentro de un try/catch porque puede ser que alguna condición no se cumpla o de repente que algo suceda y que nosotros no estamos esperando eso, etc pero tener en cuenta que no se debería de lanzar ese error del catch con el error 500, pero igual, por si sucede entonces ahí ya lo estamos controlando */
     try {
-      const newUser = new AuthModel(registerUserDTO);
+      const newUser = new UserModel(registerUserDTO);
 
       /* encriptar la contraseña */
       newUser.password = bcryptAdapter.hash(registerUserDTO.password);
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   public async loginUser(loginUserDTO: LoginUserDTO) {
-    const isUserExist = await AuthModel.findOne({
+    const isUserExist = await UserModel.findOne({
       email: loginUserDTO.email,
     });
 
@@ -162,7 +162,7 @@ export class AuthService {
     if (!email) throw CustomError.internalServer_500("Email not in token");
 
     /* tomar el usuario de la base de datos */
-    const user = await AuthModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
     /* el usuario debería de existir pero por A o B motivo si el usuario no existe o alguien lo borró o sucedió algo inesperado y se coloca un internalServer_500 porque es un error de nuestro lado, es decir, no podría ser un badRequest_400 porque no tiene nada que ver con que el usuario haya enviado mal alguna data */
     if (!user) throw CustomError.internalServer_500("Email not exists");
