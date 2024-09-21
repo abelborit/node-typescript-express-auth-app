@@ -11,6 +11,7 @@ const categorySchema = new mongoose.Schema({
     type: String,
     // required: true, // si se quiere guardar el name en nuestro categorySchema entonces el name tiene que venir sí o sí porque si no dará un error
     required: [true, "Name is required"], // si se quiere guardar el name en nuestro categorySchema entonces el name tiene que venir sí o sí porque si no dará un error el cual se lo podemos mandar de esa forma en un arreglo
+    unique: true,
   },
   available: {
     type: Boolean,

@@ -30,10 +30,10 @@ export class AuthController {
     if (error) return response.status(400).json({ error });
 
     /* aquí se coloca el ! porque ya se sabe que si todo está correcto entonces el loginUserDTO tiene el valor porque si hubiera algún error entonces iría al condicional del error */
-    /* tener en cuenta que se está usando promesas (.then().catch()) y no async/await aunque ambos son totalmente válidos, pero Fernando Herrera recomienda usar promesas porque es una buena práctica cuando trabajamos en controladores, pero se puede usar async/await si nos resulta más cómodo ya que no debería haber problemas con usar uno o el otro */
+    /* tener en cuenta que se está usando promesas (.then().catch()) y no async/await aunque ambos son totalmente válidos, pero Fernando Herrera recomienda usar promesas porque según Express nos dice que es una buena práctica cuando trabajamos en controladores, pero se puede usar async/await si nos resulta más cómodo ya que no debería haber problemas con usar uno o el otro */
     this.authService
       .loginUser(loginUserDTO!)
-      .then((user) => response.json(user))
+      .then((user) => response.status(200).json(user))
       .catch((error) => this.handleErrorResponse(response, error));
   };
 
@@ -48,7 +48,7 @@ export class AuthController {
     /* tener en cuenta que se está usando promesas (.then().catch()) y no async/await aunque ambos son totalmente válidos, pero Fernando Herrera recomienda usar promesas porque es una buena práctica cuando trabajamos en controladores, pero se puede usar async/await si nos resulta más cómodo ya que no debería haber problemas con usar uno o el otro */
     this.authService
       .registerUser(registerUserDTO!)
-      .then((user) => response.json(user))
+      .then((user) => response.status(201).json(user)) // como estamos creando sería un status 201 porque significa que una solicitud se procesó correctamente y devolvió o creó, un recurso o recursos en el proceso
       .catch((error) => this.handleErrorResponse(response, error));
   };
 
@@ -62,7 +62,7 @@ export class AuthController {
     /* siempre debería de existir el token porque si no entonces no tendríamos esta url, pero igual se hará su validación en un método en el authService y si todo es válido entonces se podrá cambiar en la base de datos el emailValidated de false a true */
     this.authService
       .validateEmail(token)
-      .then(() => response.json("Email validated successfully"))
+      .then(() => response.status(200).json("Email validated successfully"))
       .catch((error) => this.handleErrorResponse(response, error));
   };
 }

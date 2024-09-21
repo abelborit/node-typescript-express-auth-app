@@ -1,13 +1,15 @@
 import { Router } from "express";
 import { CategoryController } from "./controller";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
+import { CategoryService } from "../services/category.service";
 
 export class CategoryRoutes {
   /* aquí se utiliza static functions porque como no se hará inyección de dependencias entonces no sería necesario instsanciar la clase AppRoutes y solo se coloca directo. También se están usando el get function para tener otra forma de realizar esta función, se podría realizar sin ese get (son solo diferentes formas de hacerlo) */
   static get routes(): Router {
     const router = Router();
 
-    const categoryController = new CategoryController();
+    const categoryService = new CategoryService();
+    const categoryController = new CategoryController(categoryService);
 
     /* Routes de las API del auth */
     /* FORMA 1: aquí solo se está mandando la referencia a la función porque lo que se manda y lo que se recibe es el mismo orden y lo mismo */
