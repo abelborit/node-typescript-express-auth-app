@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { CreateCategoryDTO } from "../../domain/DTOs/category";
 import { CategoryService } from "../services/category.service";
+import { PaginationDTO } from "../../domain/DTOs/shared";
 
 /* el controlador será una clase que nos permita hacer inyección de dependencias y también tendrá todos los handlers los cuales recibirán la información para poder realizar alguna acción pero los handlers en el controlador no deberían realizar los trabajos de creación, validación y los demás procesos, ya que simplemente este es el controlador de la ruta y en este caso quien va a realizar esas tareas será un servicio que sería algo similar a un gestor de estado y será quien se encargue de ejecutar toda la parte pesada, es decir, todos los procesos o tareas de creación, validación, etc, entonces nuestro controlador es quien delegará la información al servicio quien realizará la lógica */
 export class CategoryController {
@@ -41,8 +42,19 @@ export class CategoryController {
   };
 
   public getCategories = (request: Request, response: Response) => {
+    /* los query parameters siempre vienen como string */
+    const { page = 1, limit = 10 } = request.query;
+
+    /* aquí se está haciendo recibiendo solo lo justo y necesario como el page y limit, pero también se puede colocar para que el PaginationDTO pueda recibir todo el request.query como arriba en el createCategory y ya en el DTO recién hacer las validaciones y demás */
+    /* aquí se coloca el + en page y limit, es decir, se coloca así (+page, +limit) porque como page y limit del request.query siempre vendrán como string, entonces colocando el + ya lo convertiría en un número y ya en el DTO se hacen las validaciones correspondientes */
+    const [error, paginationDTO] = PaginationDTO.execute(+page, +limit);
+
+    if (error) return response.status(400).json({ error });
+
+    // response.status(200).json(paginationDTO);
+
     this.categoryService
-      .getCategories()
+      .getCategories(paginationDTO!)
       .then((categories) => response.status(200).json(categories))
       .catch((error) => this.handleErrorResponse(response, error));
   };
