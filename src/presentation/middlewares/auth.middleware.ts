@@ -1,5 +1,9 @@
 /* al crear un middleware podemos colocar que si falla entonces detenga la ejecución y que mande un error, en nuestro caso, si el token no es válido o ya expiró podemos cancelar el funcionamiento */
 
+/* NOTA: realizar consultas a la base de datos dentro del middleware, en general, se considera una mala práctica debido a que los middlewares están diseñados para manejar la lógica de procesamiento intermedio de las solicitudes HTTP y no para interactuar directamente con la base de datos.
+
+Una mejor práctica es separar claramente las responsabilidades, de modo que el middleware se encargue de la lógica de autorización y autenticación, mientras que las consultas a la base de datos se realicen en capas o servicios específicos. Es decir, se puede crear una función en el AuthService que se encargue de hacer la consulta a la base de datos de la parte de -- tomar el usuario de la base de datos según el id que viene en el token -- */
+
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { JwtAdapter } from "../../config";
