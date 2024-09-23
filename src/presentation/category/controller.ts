@@ -22,10 +22,6 @@ export class CategoryController {
       .json({ error: "Internal Server Error - Check your logs" });
   };
 
-  public getCategories = (request: Request, response: Response) => {
-    response.json("getCategories");
-  };
-
   public createCategory = (request: Request, response: Response) => {
     /* como en el AuthMiddleware estamos colocando que el body de la request se le coloque también el usuario entonces con este -- response.json(request.body) -- veremos que tiene la categoría creada y toda la información del usuario, password, id, role, token, etc */
     // response.json(request.body);
@@ -41,6 +37,13 @@ export class CategoryController {
     this.categoryService
       .createCategory(createCategoryDTO!, request.body.user) // en el request.body está el user porque se hizo eso con el AuthMiddleware para que si el token es válido entonces regrese el usuario
       .then((category) => response.status(201).json(category)) // como estamos creando sería un status 201 porque significa que una solicitud se procesó correctamente y devolvió o creó, un recurso o recursos en el proceso
+      .catch((error) => this.handleErrorResponse(response, error));
+  };
+
+  public getCategories = (request: Request, response: Response) => {
+    this.categoryService
+      .getCategories()
+      .then((categories) => response.status(200).json(categories))
       .catch((error) => this.handleErrorResponse(response, error));
   };
 }
