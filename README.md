@@ -186,3 +186,40 @@ En esta sección veremos temas middlewares para protección de rutas (rutas ente
 - ejemplo
 
 ---
+
+---
+
+## Parte IV:
+
+# Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+En esta sección vamos a trabajar con relaciones con las bases de datos en nuestras colecciones de Mongo, es decir, que los usuarios puedan crear categorías y también productos y que estos estén relacionados a los usuarios, también cómo podemos generar una semilla para poblar la base de datos rápidamente, entre otras cosas.
+
+- Puntualmente veremos:
+
+  - Una nueva forma de DTO completa
+  - Validar MongoIDs
+  - Crear categorías, productos y usuarios desde una semilla
+  - Remover información en la serialización JSON
+
+### \* PASOS A REALIZAR:
+
+1. ejemplo
+2. ejemplo
+3. ejemplo
+
+### \* RECURSOS A USAR:
+
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+
+### \* NOTAS:
+
+- ejemplo
+- ejemplo
+- ejemplo
+
+---
