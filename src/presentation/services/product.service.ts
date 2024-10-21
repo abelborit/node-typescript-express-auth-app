@@ -44,7 +44,10 @@ export class ProductService {
         ProductModel.countDocuments(),
         ProductModel.find()
           .skip((page - 1) * limit)
-          .limit(limit),
+          .limit(limit)
+          .populate("user") // el populate se usará para llenar una relación, en este caso llenar la relación del "user", es decir, al obtener todos los productos vamos a tener también todos los datos del usuario
+          // .populate("user", "name email"), // en este caso podemos hacer que solo venga el name y el email (también vendrá sí o sí el _id)
+          .populate("category"),
       ]);
 
       return {

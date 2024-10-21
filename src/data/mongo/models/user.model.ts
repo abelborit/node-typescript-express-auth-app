@@ -34,6 +34,17 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+/* cuando serializamos el objeto como JSON, podemos decirle a mongoose cómo queremos que sea serializado */
+userSchema.set("toJSON", {
+  virtuals: true, // para que coloque también el id (aparte del _id que ya se tiene)
+  versionKey: false, // para quitar el version key o el "__v"
+  transform: function (doc, ret, options) {
+    /* no usar arrow function porque de esta forma tradicional se tiene el contexto this apuntando al objeto de userSchema */
+    delete ret._id; // para que no aparezca el "_id" en el objeto de salida
+    delete ret.password; // para que no aparezca el "password" en el objeto de salida
+  },
+});
+
 /* modelo para poder interactuar con mongo. El nombre que aparecerá será "Users" porque mongoose por defecto toma el nombre del modelo y le aumenta una "s" pero eso igual se puede colocar según el nombre que nosotros queramos */
 export const UserModel = mongoose.model("User", userSchema);
 

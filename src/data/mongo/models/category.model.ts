@@ -24,5 +24,15 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
+/* cuando serializamos el objeto como JSON, podemos decirle a mongoose cómo queremos que sea serializado */
+categorySchema.set("toJSON", {
+  virtuals: true, // para que coloque también el id (aparte del _id que ya se tiene)
+  versionKey: false, // para quitar el version key o el "__v"
+  transform: function (doc, ret, options) {
+    /* no usar arrow function porque de esta forma tradicional se tiene el contexto this apuntando al objeto de categorySchema */
+    delete ret._id; // para que no aparezca el "_id" en el objeto de salida
+  },
+});
+
 /* modelo para poder interactuar con mongo. El nombre que aparecerá será "Categories" porque mongoose por defecto toma el nombre del modelo y le aumenta una "s" o "ies" pero eso igual se puede colocar según el nombre que nosotros queramos */
 export const CategoryModel = mongoose.model("Category", categorySchema);
