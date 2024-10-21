@@ -218,8 +218,14 @@ En esta sección vamos a trabajar con relaciones con las bases de datos en nuest
 
 ### \* NOTAS:
 
+- PREGUNTA: ¿Por qué en los services y dtos se utilizan funciones normales y no arrow functions?
+
+  - RESPUESTA:
+
+    - La elección entre una u otra depende del contexto y de las necesidades específicas del código. Las funciones normales y las arrow functions tienen diferencias en cómo manejan el contexto "this" en JavaScript. Las arrow functions no crean su propio ámbito de "this", lo que puede ser beneficioso en ciertos casos, como en la definición de métodos en objetos, donde se necesita acceder al "this" del objeto que las contiene. Por otro lado, las funciones normales tienen su propio ámbito de "this", lo que puede ser útil en situaciones donde se requiere un control más preciso sobre el contexto.
+
 - ejemplo
-- ejemplo
+
 - ejemplo
 
 ---
