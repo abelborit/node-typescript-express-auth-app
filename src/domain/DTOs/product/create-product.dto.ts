@@ -1,5 +1,7 @@
 /* por ejemplo si queremos crear una categoría necesitaríamos que nos mande cierta información como un name, user, etc, pero cada propiedad o campo puede tener sus propias restricciones y validaciones. Si estamos esperando recibir esa información entonces eso se tiene que validar y transformar en caso sea necesario para tener el tipo de dato que se espera recibir porque puede ser que la aplicación no funcione si por ejemplo en el name se manda como boolean pero se esperaba recibir un string, entonces para hacer esas validaciones y transformaciones se usan los DTOs */
 
+import { Validators } from "../../../config";
+
 /* los DTOs pueden ser una clase o función, pero se debe de asegurar de cómo viene la data */
 /* NOTA: lo que se hará aquí a diferencia de lo que se hizo en -- create-category.dto.ts -- es que aquí se va a recibir el usuario porque debería ser obligatorio tener el id del usuario o lo que se necesite del usuario para poder crear el producto. En el caso del -- create-category.dto.ts -- lo que se está haciendo es solo recibir lo necesario para crear la categoría y luego en el -- category.service.ts -- es quien recibe el usuario. Ambas formas son correctas, igual sería mejor trabajarlo como se está haciendo aquí, pero se hizo de ambas formas para tener más opciones para trabajar o lo que se nos haga más facil y entendible */
 export class CreateProductDTO {
@@ -15,21 +17,27 @@ export class CreateProductDTO {
 
   /* aquí las props van a simular lo que vendría del request.body. Lo que se regresar puede ser cualquier cosa según como lo necesitemos, puede ser ": CreateProductDTO | undefined" indicando que hubo un error o también ": CreateProductDTO | string" para manejar si se retornar un error en caso algo salió mal y ver el mensaje pero en este caso será ": [string?, CreateProductDTO?]" un arreglo donde el primer elemento será un string para saber qué fue lo que salió mal que indicaría el error y el segundo será una instancia del CreateProductDTO pero ambos serán opcionales porque si tenemos un error entonces está el string y si no tenemos un error entonces está el CreateProductDTO que sería la instancia */
   static execute(props: { [key: string]: any }): [string?, CreateProductDTO?] {
+    /* aquí como el id del user y el id del category deben ser de mongo entonces se tienen que realizar sus validaciones pero como este archivo está en la capa/folder de "domain" entonces aquí sería bueno NO tener código o importaciones de terceros, solo debería estar nuestro código y por eso en vez de crear esa funcionalidad aquí la crearemos en "config/validators.ts" */
     const {
       name,
       available = false,
       price,
       description,
-      user,
-      category,
+      user, // el id del usuario debe ser un id de mongo
+      category, // el id de la categoría debe ser un id de mongo
     } = props;
 
     let availableAsBoolean = available; // para tomar el valor que viene de available y guardarlo en una variable para luego hacer las validaciones y si es algo que no sea un valor boolean (porque por ejemplo si se manda como json será tipo boolean pero si se manda como x-www-form-urlencoded vendrá como string) entonces tocará hacer la conversión necesaria
 
     /* validaciones de nuestras properties tal cual lo haríamos comúnmente */
     if (!name) return ["name is missing", undefined]; // se podría colocar también como -- if (!name) return ["name is missing"]; -- porque el segundo argumento sería considerado como undefined
+
     if (!user) return ["user is missing", undefined]; // se podría colocar también como -- if (!user) return ["user is missing"]; -- porque el segundo argumento sería considerado como undefined
+    if (!Validators.isMongoID(user)) return ["user id is invalid", undefined];
+
     if (!category) return ["category is missing", undefined]; // se podría colocar también como -- if (!category) return ["category is missing"]; -- porque el segundo argumento sería considerado como undefined
+    if (!Validators.isMongoID(category))
+      return ["category id is invalid", undefined];
 
     /* el available puede venir como string o sino como un boolean, porque por ejemplo si se manda como json será tipo boolean pero si se manda como x-www-form-urlencoded vendrá como string */
     if (typeof available !== "boolean") {

@@ -28,7 +28,10 @@ export class ProductController {
     // response.json(request.body);
 
     /* el request.body es el que se obtiene gracias al AuthMiddleware */
-    const [error, createProductDTO] = CreateProductDTO.execute(request.body);
+    const [error, createProductDTO] = CreateProductDTO.execute({
+      ...request.body,
+      user: request.body.user.id,
+    });
 
     if (error) return response.status(400).json({ error });
 
