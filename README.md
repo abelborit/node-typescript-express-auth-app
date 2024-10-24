@@ -255,3 +255,43 @@ En esta sección vamos a trabajar con relaciones con las bases de datos en nuest
 - ejemplo
 
 ---
+
+## Parte V:
+
+# Temas puntuales de la sección
+
+### ¿Qué veremos en esta sección?
+
+En esta sección trabajaremos con la carga y lectura de archivos a nuestro servidor (cualquier archivo que queramos recibir). La idea es que podamos trabajar con la carga de archivos y colocarlos donde sea necesario, creando un código que nos permita su expansión y modificación después.
+
+NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el mismo servidor, en este ejercicio lo haremos subiéndolo al mismo servidor pero solo para fines educativos y ver cómo se podría manejar la subida de archivos en un directorio físico para que se almacene ahí. Pero en general, la recomendación sería colocarlo en un servidor externo, bucket de AWS, algún drive de Google, en cloudinary o cualquier servicio externo que no sea el propio servidor porque por ejemplo, en el servidor tenemos las variables de entorno, llaves o keys privadas, información sensible de cómo funciona la aplicación, y aunque los archivos también son importantes como fotografías de los productos, PDF y/o documentos, etc, puede ser que se suba algún archivo malicioso con la intención de analizar nuestro código o ejecutar algo para minar información de nuestra base de datos que está siendo usada en ese servidor y por eso se recomienda usarlo en otro servidor aparte.
+
+- Puntualmente veremos:
+
+  - Carga Simple
+  - Carga Multiple
+  - Obtener archivos + Body de la petición http de forma simultánea
+  - Validaciones de archivo y extensiones
+  - Middlewares personalizados
+  - Almacenamiento en File System
+  - Obtención del archivo de la petición http
+
+### \* PASOS A REALIZAR:
+
+1. ejemplo
+2. ejemplo
+3. ejemplo
+
+### \* RECURSOS A USAR:
+
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+
+### \* NOTAS:
+
+- ejemplo
+- ejemplo
+- ejemplo
+
+---
