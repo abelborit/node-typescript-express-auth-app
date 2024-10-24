@@ -21,10 +21,18 @@ export class FileUploadController {
   };
 
   public uploadFile = (request: Request, response: Response) => {
+    /* como se colocó el middleware de "fileUpload" entonces eso hará que en la request se cree una propiedad llamada "files" y es una propiedad opcional */
+    /* NOTA: cuando es un solo archivo nos da un objeto y cuando son varios archivos nos da un arreglo lo cual vamos a homogenizar esa parte para que cuando sea un solo archivo o varios archivos, nos de un arreglo */
+    console.log({ files: request.files });
+
     response.json("uploadFile");
   };
 
   public uploadMultipleFiles = (request: Request, response: Response) => {
+    /* como se colocó el middleware de "fileUpload" entonces eso hará que en la request se cree una propiedad llamada "files" y es una propiedad opcional */
+    /* NOTA: cuando es un solo archivo nos da un objeto y cuando son varios archivos nos da un arreglo lo cual vamos a homogenizar esa parte para que cuando sea un solo archivo o varios archivos, nos de un arreglo */
+    console.log({ files: request.files });
+
     response.json("uploadMultipleFiles");
   };
 }
