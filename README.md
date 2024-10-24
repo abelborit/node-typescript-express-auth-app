@@ -284,8 +284,12 @@ NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el 
 
 ### \* RECURSOS A USAR:
 
-- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
-- Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
+- Paquete `uuid` usando `npm i uuid` desde `https://www.npmjs.com/package/uuid`
+
+- Paquete `express-fileupload` usando `npm i express-fileupload` desde `https://www.npmjs.com/package/express-fileupload`
+
+  - Para los tipos `npm i --save-dev @types/express-fileupload`
+
 - Paquete `nombre_paquete` usando `comando_paquete` desde `url_paquete`
 
 ### \* NOTAS:
