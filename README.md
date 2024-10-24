@@ -224,7 +224,33 @@ En esta sección vamos a trabajar con relaciones con las bases de datos en nuest
 
     - La elección entre una u otra depende del contexto y de las necesidades específicas del código. Las funciones normales y las arrow functions tienen diferencias en cómo manejan el contexto "this" en JavaScript. Las arrow functions no crean su propio ámbito de "this", lo que puede ser beneficioso en ciertos casos, como en la definición de métodos en objetos, donde se necesita acceder al "this" del objeto que las contiene. Por otro lado, las funciones normales tienen su propio ámbito de "this", lo que puede ser útil en situaciones donde se requiere un control más preciso sobre el contexto.
 
-- ejemplo
+- PREGUNTA: ¿Alguna forma para seleccionar que solo los administradores tenga permisos para borrar la base de datos?
+
+  - RESPUESTA:
+
+    - Se podría crear una función o middleware como el validateJWT pero que se encargue de comprobar esos permisos. Este middleware se colocaría justo después de utilizar el AuthMiddleware y debería de comprobar si es administrador o no antes de darle permiso de hacer la acción del endpoint que se llamó, que en este caso sería borrar una base de datos o parte de la base de datos. Podría ser algo similar a:
+
+      ```js
+      const isAdminRole = (req: Request, res: Response, next: NextFunction) => {
+        if (!req.body.user) {
+          return res.status(500).json({
+            msg: "Se quiere verificar el rol sin validar el token primero",
+          });
+        }
+
+        const { role, name } = req.body.user;
+
+        if (role !== "ADMIN_ROLE") {
+          return res.status(401).json({
+            msg: `${name} no es administrador - No puede hacer esto`,
+          });
+        }
+
+        next();
+      };
+      ```
+
+    - Otra forma también podría ser crear un endpoint DELETE. Dicho endpoint podria validar en la query que sea un string /:collectionName que coincida con esa collection, luego que el mismo te valide el ROL y si esta autenticado el usuario, luego si pasa esa validacion, llamas al final a tu modelo por ejemplo UserModel.collection.drop(); o el nombre que puso el usuario en collectionName y ahi eliminarias toda la coleccion indicada.
 
 - ejemplo
 
