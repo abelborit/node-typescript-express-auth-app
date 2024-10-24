@@ -290,7 +290,12 @@ NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el 
 
 ### \* NOTAS:
 
-- ejemplo
+- PREGUNTA: ¿Cómo se puede utilizar la API FileUpload Simple y Carga Multiple desde el lado cliente (frontend)? ¿Cómo se le pasa el archivo?
+
+  - RESPUESTA
+
+    - Se tendría que hacer uso del [FormData](https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects) y aquí hay un [ejemplo usando React](https://es.stackoverflow.com/questions/341503/enviar-m%C3%BAltiples-archivos-en-react-hacia-el-backend)
+
 - ejemplo
 - ejemplo
 
