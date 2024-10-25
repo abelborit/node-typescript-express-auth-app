@@ -28,6 +28,15 @@ export class FileUploadController {
     // console.log({ files: request.files });
     // response.json("uploadFile");
 
+    const type = request.params.type;
+    const validTypes = ["users", "categories", "products"];
+
+    if (!validTypes.includes(type)) {
+      return response.status(400).json({
+        error: `Invalid type: -- ${type} --, valid ones -- ${validTypes} --`,
+      });
+    }
+
     const files = request.files;
     const file = request.files?.file as UploadedFile; // se coloca el "as UploadedFile" porque si no entonces saldrá un error en ".uploadSingle(file)" porque nosotros estamos mandando un "UploadedFile" y no un "UploadedFile | UploadedFile[]"
 
@@ -36,7 +45,7 @@ export class FileUploadController {
     }
 
     this.fileUploadService
-      .uploadSingle(file)
+      .uploadSingle(file, `uploades/${type}`)
       .then((uploaded) => response.status(200).json(uploaded))
       .catch((error) => this.handleErrorResponse(response, error));
   };
