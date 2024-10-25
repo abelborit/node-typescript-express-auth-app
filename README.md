@@ -286,6 +286,8 @@ NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el 
 
 - Paquete `uuid` usando `npm i uuid` desde `https://www.npmjs.com/package/uuid`
 
+  - Para los tipos `npm i --save-dev @types/uuid`
+
 - Paquete `express-fileupload` usando `npm i express-fileupload` desde `https://www.npmjs.com/package/express-fileupload`
 
   - Para los tipos `npm i --save-dev @types/express-fileupload`
