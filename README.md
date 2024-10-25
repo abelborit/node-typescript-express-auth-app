@@ -302,7 +302,18 @@ NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el 
 
     - Se tendría que hacer uso del [FormData](https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects) y aquí hay un [ejemplo usando React](https://es.stackoverflow.com/questions/341503/enviar-m%C3%BAltiples-archivos-en-react-hacia-el-backend)
 
-- ejemplo
+- PREGUNTA: ¿Hay alguna forma de enviar imágenes (fotos de perfil) y los datos de un usuario al mismo tiempo?. En un foro leído dice que se realiza con multipart, pero la duda es ¿Se realiza eso en el frontend o en el backend?
+
+  - RESPUESTA
+
+    - Es posible enviar imágenes y datos de un usuario al mismo tiempo utilizando el método POST. La forma de hacerlo es utilizando el tipo de contenido **multipart/form-data** en el cuerpo de la solicitud (body).
+
+    - En el frontend, cuando se envía un formulario con archivos y campos de texto, se utiliza el atributo **enctype="multipart/form-data"** en el formulario HTML. De esta manera, el navegador se encarga de codificar los archivos y los campos de texto en un formato que puede ser leído por el servidor.
+
+    - En el backend, se puede utilizar un middleware como **multer** para manejar las solicitudes con archivos. Este middleware multer se encarga de parsear el cuerpo de la solicitud y extraer los archivos y campos de texto.
+
+    - Un ejemplo puede ser: https://medium.com/@diego.coder/subida-de-archivos-con-node-js-express-y-multer-55e99219d754
+
 - ejemplo
 
 ---
