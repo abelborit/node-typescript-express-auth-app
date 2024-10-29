@@ -36,7 +36,6 @@ export class FileUploadService {
       }
 
       const destination = path.resolve(__dirname, "../../../", folder); // el __dirname es relativo a la carpeta en donde se está ejecutando este archivo de "file-upload.service.ts" y toda esta función hará que se tome el directorio relativo a "file-upload.service.ts", luego que suba 3 directorios y que tome el folder que viene el cual debería estar en el root de la aplicación
-
       this.checkFolder(destination);
 
       const fileName = `${this.uuid()}` + "." + `${fileExtension}`;
@@ -54,10 +53,15 @@ export class FileUploadService {
 
   /* la idea de este método es que según la cantidad de archivos que se quieran subir, vamos a estar llamando al método "uploadSingle" */
   public async uploadMultiple(
-    file: UploadedFile[],
+    files: UploadedFile[],
     folder: string = "uploades",
     validExtensions: string[] = ["png", "jpg", "jpeg", "gif"]
   ) {
-    throw new Error("Not implemented");
+    /* tener en cuenta que por cada archivo se manda a llamar al método "uploadSingle" y dentro tiene el método "checkFolder" entonces por cada archivo que se está subiendo en este "uploadMultiple" se está evaluando si folder existe lo cual es un poco innecesario porque si una imagen se sube entonces todas llegarán al mismo folder. Lo que se puede hacer es tratar de dividir los métodos y sus validaciones para los folders para que solo se mande a llamar una vez esa validación de si la carpeta existe o no para que la cree y poder optimizar un poco el código */
+    const filesToUpload = await Promise.all(
+      files.map((file) => this.uploadSingle(file, folder, validExtensions))
+    );
+
+    return filesToUpload;
   }
 }

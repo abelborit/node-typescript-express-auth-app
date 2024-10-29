@@ -50,10 +50,29 @@ export class FileUploadController {
   };
 
   public uploadMultipleFiles = (request: Request, response: Response) => {
+    // console.log({ body: request.body }); // NOTA: en el body aparte de recibir el archivo también se pueden recibir datos adicionales del usuario o del producto o de lo que necesitemos, y eso ya sería hacerlo con el -- multipart/form-data -- como se menciona en el README
+
     /* como se colocó el middleware de "fileUpload" entonces eso hará que en la request se cree una propiedad llamada "files" y es una propiedad opcional */
     /* NOTA: cuando es un solo archivo nos da un objeto y cuando son varios archivos nos da un arreglo lo cual vamos a homogenizar esa parte para que cuando sea un solo archivo o varios archivos, nos de un arreglo */
-    console.log({ files: request.files });
+    // console.log({ files: request.files });
+    // response.json("uploadMultipleFiles");
 
-    response.json("uploadMultipleFiles");
+    const type = request.params.type;
+    const validTypes = ["users", "categories", "products"];
+
+    if (!validTypes.includes(type)) {
+      return response.status(400).json({
+        error: `Invalid type: -- ${type} --, valid ones -- ${validTypes} --`,
+      });
+    }
+
+    /* esto ya no sería necesario porque ya estamos pasando todo por nuestro middleware entonces ya no lo tenemos directo desde el "request.files" sino ahora lo colocamos desde el body "request.body.files" y es más facil de tomar los archivos desde ahí */
+    // const file = request.files?.file as UploadedFile; // se coloca el "as UploadedFile" porque si no entonces saldrá un error en ".uploadSingle(file)" porque nosotros estamos mandando un "UploadedFile" y no un "UploadedFile | UploadedFile[]"
+    const files = request.body.files as UploadedFile[]; // podría ser también -- request.body.files.at(0) as UploadedFile; --
+
+    this.fileUploadService
+      .uploadMultiple(files, `uploades/${type}`)
+      .then((uploaded) => response.status(200).json(uploaded))
+      .catch((error) => this.handleErrorResponse(response, error));
   };
 }
