@@ -2,6 +2,7 @@ import { Router } from "express";
 import { FileUploadController } from "./controller";
 import { FileUploadService } from "../services/file-upload.service";
 import { FileUploadMiddleware } from "../middlewares/file-upload.middleware";
+import { ValidTypesFolderMiddleware } from "../middlewares/valid-types-folder.middleware";
 
 export class FileUploadRoutes {
   /* aquí se utiliza static functions porque como no se hará inyección de dependencias entonces no sería necesario instsanciar la clase AppRoutes y solo se coloca directo. También se están usando el get function para tener otra forma de realizar esta función, se podría realizar sin ese get (son solo diferentes formas de hacerlo) */
@@ -12,7 +13,25 @@ export class FileUploadRoutes {
     const fileUploadController = new FileUploadController(fileUploadService);
 
     /* como quiero que el middleware se ejecute para todas estas rutas que tengo, entonces se puede colocar de esta forma o si no, entonces se puede colocar independiente en cada ruta como un arreglo o solo el middleware a usar */
+    /* FORMA 1: colocar los middleware de forma independiente */
     router.use(FileUploadMiddleware.containFiles);
+    router.use(
+      ValidTypesFolderMiddleware.checkTypeFolder([
+        "users",
+        "categories",
+        "products",
+      ])
+    );
+
+    /* FORMA 2: colocar los middleware en un arreglo */
+    // router.use([
+    //   FileUploadMiddleware.containFiles,
+    //   ValidTypesFolderMiddleware.checkTypeFolder([
+    //     "users",
+    //     "categories",
+    //     "products",
+    //   ]),
+    // ]);
 
     /* Routes de las API del auth */
     /* FORMA 1: aquí solo se está mandando la referencia a la función porque lo que se manda y lo que se recibe es el mismo orden y lo mismo */

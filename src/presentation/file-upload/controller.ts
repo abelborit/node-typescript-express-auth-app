@@ -31,13 +31,6 @@ export class FileUploadController {
     // response.json("uploadFile");
 
     const type = request.params.type;
-    const validTypes = ["users", "categories", "products"];
-
-    if (!validTypes.includes(type)) {
-      return response.status(400).json({
-        error: `Invalid type: -- ${type} --, valid ones -- ${validTypes} --`,
-      });
-    }
 
     /* esto ya no sería necesario porque ya estamos pasando todo por nuestro middleware entonces ya no lo tenemos directo desde el "request.files" sino ahora lo colocamos desde el body "request.body.files" y es más facil de tomar los archivos desde ahí */
     // const file = request.files?.file as UploadedFile; // se coloca el "as UploadedFile" porque si no entonces saldrá un error en ".uploadSingle(file)" porque nosotros estamos mandando un "UploadedFile" y no un "UploadedFile | UploadedFile[]"
@@ -58,13 +51,6 @@ export class FileUploadController {
     // response.json("uploadMultipleFiles");
 
     const type = request.params.type;
-    const validTypes = ["users", "categories", "products"];
-
-    if (!validTypes.includes(type)) {
-      return response.status(400).json({
-        error: `Invalid type: -- ${type} --, valid ones -- ${validTypes} --`,
-      });
-    }
 
     /* esto ya no sería necesario porque ya estamos pasando todo por nuestro middleware entonces ya no lo tenemos directo desde el "request.files" sino ahora lo colocamos desde el body "request.body.files" y es más facil de tomar los archivos desde ahí */
     // const file = request.files?.file as UploadedFile; // se coloca el "as UploadedFile" porque si no entonces saldrá un error en ".uploadSingle(file)" porque nosotros estamos mandando un "UploadedFile" y no un "UploadedFile | UploadedFile[]"
