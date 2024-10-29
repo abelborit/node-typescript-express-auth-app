@@ -3,6 +3,7 @@ import { AuthRoutes } from "./auth/routes";
 import { CategoryRoutes } from "./category/routes";
 import { ProductRoutes } from "./products/routes";
 import { FileUploadRoutes } from "./file-upload/routes";
+import { ImagesRoutes } from "./images/routes";
 
 export class AppRoutes {
   /* aquí se utiliza static functions porque como no se hará inyección de dependencias entonces no sería necesario instanciar la clase AppRoutes y solo se coloca directo. También se están usando el get function para tener otra forma de realizar esta función, se podría realizar sin ese get (son solo diferentes formas de hacerlo) */
@@ -16,6 +17,7 @@ export class AppRoutes {
     router.use("/api/categories", CategoryRoutes.routes);
     router.use("/api/products", ProductRoutes.routes);
     router.use("/api/upload", FileUploadRoutes.routes);
+    router.use("/api/images", ImagesRoutes.routes);
 
     return router;
   }
