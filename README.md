@@ -314,6 +314,10 @@ NOTA: Cuango hagamos carga de archivos NO debemos almacenar esos archivos en el 
 
     - Un ejemplo puede ser: https://medium.com/@diego.coder/subida-de-archivos-con-node-js-express-y-multer-55e99219d754
 
-- ejemplo
+- PREGUNTA: ¿Cómo realizar un proceso de construcción (build) de una aplicación en Node.js? Es decir, hacer un deployment del ApiRest en Producción
+
+  - RESPUESTA
+
+    - Cuando se hace un build de la aplicación Node, lo que pasa es que se crea una versión optimizada de la aplicación, pero no incluye las dependencias del node_modules, esas dependencias se manejan por separado y se instalan en el servidor de producción una vez se haga el deploy, ahora, sobre el archivo .env en producción no se debería usar directamente, en vez de este archivo las variables de entorno se deben establecer directamente en el servidor de producción, esto es más seguro y es la forma en la que se deberían trabajar las variables de entorno en producción.
 
 ---
