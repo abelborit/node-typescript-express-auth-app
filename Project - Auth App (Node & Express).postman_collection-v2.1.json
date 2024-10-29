@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "149ec686-0edd-4975-9c90-4dbe888e1503",
+		"name": "Project - Auth App (Node & Express)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25203359"
+	},
+	"item": [
+		{
+			"name": "Auth - Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Usuario 2",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "correo_2@correo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "colocar_tu_correo_aquí",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth - Login User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "correo@correo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth - Validate Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/auth/validate-email/TOKEN",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"validate-email",
+						"TOKEN"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories - Create Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjE4ZjkwMDhjYjM3ZjAxNjM2ZWQxNCIsImVtYWlsIjoiY29ycmVvXzJAY29ycmVvLmNvbSIsImlhdCI6MTcyNzEwNjk2MCwiZXhwIjoxNzI3MTE0MTYwfQ.vJCiXw4b_Dq7e_GoX0Vtssny6VmoBwfxsP0VisfoIbw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Chocolates 5_2",
+							"type": "text"
+						},
+						{
+							"key": "available",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/create-category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"create-category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories - Get Category",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/categories/get-categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"categories",
+						"get-categories"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "asdasdasdasdasd",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "asdasdasdasdasd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products - Create Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjE4OTJmMGMyMGY2MTI2MWIxZDQ5NyIsImVtYWlsIjoiY29ycmVvQGNvcnJlby5jb20iLCJpYXQiOjE3Mjk1NTEwOTksImV4cCI6MTcyOTU1ODI5OX0.EPvWoR8e7MnUvedOhHHp6GoQ6IDfbtQ3FO2paC4VqS8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Hot Chocolate 4",
+							"type": "text"
+						},
+						{
+							"key": "available",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "66f189470c20f61261b1d49b",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/create-product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"create-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products - Get Products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/get-products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"get-products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "asdasdasdasdasd",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "asdasdasdasdasd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - Single",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/imagen-1.jpg",
+							"disabled": true
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/imagen-2.jpg"
+						},
+						{
+							"key": "name",
+							"value": "Nombre Test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Apellido Test",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/upload/single/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"upload",
+						"single",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - Multiple",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/imagen-1.jpg"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/imagen-2.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/upload/multiple/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"upload",
+						"multiple",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return File - Get File",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/imagen-2.jpg",
+							"disabled": true
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Lenovo/Desktop/archivo-prueba.txt",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Nombre Test",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Apellido Test",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/images/users/0ce66fdd-01ce-419a-a173-0a0dec776fd6.jpeg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"images",
+						"users",
+						"0ce66fdd-01ce-419a-a173-0a0dec776fd6.jpeg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
